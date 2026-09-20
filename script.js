@@ -255,6 +255,30 @@ async function sendLead(payload) {
   }
 }
 
+async function sendNotifyEmail(payload) {
+  try {
+    const response = await fetch(CONFIG.notifyEmailEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        _subject: `🌞 New website lead — ${payload.companyName}`,
+        _template: "table",
+        _cc: CONFIG.notifyCc,
+        "Name / Company": payload.companyName,
+        "Client Type": payload.clientType || "—",
+        "Monthly Bill Range": payload.billRange || "—",
+        "Financing Preference": payload.financing || "Not sure",
+        Phone: payload.phone || "—",
+        Source: "butanwebsite lead form"
+      })
+    });
+    const body = await response.json().catch(() => ({}));
+    return response.ok && String(body.success) !== "false";
+  } catch {
+    return false;
+  }
+}
+
 function bindLeadForm() {
   const form = document.getElementById("solar-lead-form");
   const statusEl = document.getElementById("form-status");
@@ -286,8 +310,11 @@ function bindLeadForm() {
     /* Open WhatsApp immediately (before await) so mobile popup blockers allow it. */
     window.open(waLink, "_blank", "noopener,noreferrer");
 
-    const sent = await sendLead(payload);
-    statusEl.textContent = sent
+    const [pipelined, emailed] = await Promise.all([
+      sendLead(payload),
+      sendNotifyEmail(payload)
+    ]);
+    statusEl.textContent = (pipelined || emailed)
       ? "WhatsApp opened — your request is also logged with our team."
       : "WhatsApp opened — send the message there and we'll reply fast.";
 

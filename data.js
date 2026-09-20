@@ -9,6 +9,10 @@ const CONFIG = {
   whatsappNumber: "601116688339",
   teamEmail: "butansolar@gmail.com",
   leadEndpoint: "/api/lead",
+  /* Email notifications go browser → FormSubmit (datacenter IPs are blocked,
+     so this cannot live in the serverless function). Needs one-time activation. */
+  notifyEmailEndpoint: "https://formsubmit.co/ajax/chongyao1@gmail.com",
+  notifyCc: "butansolar@gmail.com",
   campaignCode: "2bob2butan",
   campaignOffer: "2% discount",
   zeroCapexRate: "RM0.475/kWh",

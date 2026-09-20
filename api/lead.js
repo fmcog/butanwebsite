@@ -9,9 +9,13 @@
  * The Notion data source ID is fixed (Butan Solar → Sales Pipeline).
  */
 
+/*
+ * Note: email notification is sent CLIENT-SIDE from script.js via FormSubmit —
+ * FormSubmit 403s requests from datacenter IPs, so it cannot be called from
+ * this function. This endpoint handles the Notion pipeline write only.
+ */
+
 const NOTION_DATA_SOURCE_ID = "721ba9db-a791-834b-841a-079d2df33929";
-const NOTIFY_TO = "chongyao1@gmail.com";
-const NOTIFY_CC = "butansolar@gmail.com";
 
 const VALID_CLIENT_TYPES = new Set(["Commercial", "Residential"]);
 const VALID_FINANCING = new Set(["Outright", "0 capex", "Bank loan"]);
@@ -53,39 +57,6 @@ async function createNotionLead({ companyName, clientType, financing, descriptio
   return res.json();
 }
 
-async function sendNotificationEmail({ companyName, clientType, billRange, financing, phone }) {
-  /* FormSubmit AJAX — requires one-time activation of NOTIFY_TO (first call
-     emails a confirmation link; until clicked, emails are dropped). */
-  const res = await fetch(`https://formsubmit.co/ajax/${NOTIFY_TO}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      /* FormSubmit rejects requests that don't look like they come from a
-         browser page — it needs Origin/Referer/User-Agent to accept the call. */
-      Origin: "https://butanwebsite.vercel.app",
-      Referer: "https://butanwebsite.vercel.app/",
-      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
-    },
-    body: JSON.stringify({
-      _subject: `🌞 New website lead — ${companyName}`,
-      _template: "table",
-      _cc: NOTIFY_CC,
-      "Name / Company": companyName,
-      "Client Type": clientType || "—",
-      "Monthly Bill Range": billRange || "—",
-      "Financing Preference": financing || "Not sure",
-      Phone: phone || "—",
-      Source: "butanwebsite lead form"
-    })
-  });
-  if (!res.ok) throw new Error(`FormSubmit ${res.status}`);
-  const body = await res.json().catch(() => ({}));
-  /* FormSubmit answers 200 with success:"false" e.g. while the destination
-     address is still unactivated — surface that as a failure so it's logged. */
-  if (String(body.success) === "false") throw new Error(`FormSubmit: ${body.message}`);
-}
-
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -117,7 +88,7 @@ module.exports = async function handler(req, res) {
     `Submitted: ${new Date().toISOString().slice(0, 16).replace("T", " ")} UTC`
   ].filter(Boolean).join(" · ");
 
-  const results = { notion: false, email: false };
+  const results = { notion: false };
 
   if (process.env.NOTION_TOKEN) {
     try {
@@ -130,15 +101,7 @@ module.exports = async function handler(req, res) {
     console.error("NOTION_TOKEN not set — skipping pipeline write");
   }
 
-  try {
-    await sendNotificationEmail({ companyName, clientType, billRange, financing, phone });
-    results.email = true;
-  } catch (err) {
-    console.error("Email notification failed:", err.message);
-  }
-
-  /* 200 as long as at least one channel worked; the visitor is already in
-     WhatsApp either way, so this only affects the status message. */
-  const ok = results.notion || results.email;
-  return res.status(ok ? 200 : 502).json({ ok, ...results });
+  /* The visitor is already in WhatsApp either way; this only affects the
+     status message shown under the form. */
+  return res.status(results.notion ? 200 : 502).json({ ok: results.notion, ...results });
 };
