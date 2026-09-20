@@ -58,7 +58,15 @@ async function sendNotificationEmail({ companyName, clientType, billRange, finan
      emails a confirmation link; until clicked, emails are dropped). */
   const res = await fetch(`https://formsubmit.co/ajax/${NOTIFY_TO}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      /* FormSubmit rejects requests that don't look like they come from a
+         browser page — it needs Origin/Referer/User-Agent to accept the call. */
+      Origin: "https://butanwebsite.vercel.app",
+      Referer: "https://butanwebsite.vercel.app/",
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+    },
     body: JSON.stringify({
       _subject: `🌞 New website lead — ${companyName}`,
       _template: "table",
@@ -72,6 +80,10 @@ async function sendNotificationEmail({ companyName, clientType, billRange, finan
     })
   });
   if (!res.ok) throw new Error(`FormSubmit ${res.status}`);
+  const body = await res.json().catch(() => ({}));
+  /* FormSubmit answers 200 with success:"false" e.g. while the destination
+     address is still unactivated — surface that as a failure so it's logged. */
+  if (String(body.success) === "false") throw new Error(`FormSubmit: ${body.message}`);
 }
 
 module.exports = async function handler(req, res) {
