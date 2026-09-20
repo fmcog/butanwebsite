@@ -1,133 +1,118 @@
-# Butan Solar Website — Build Brief (v2, rebuilt from scratch)
+# Butan Solar Website — Build Brief (v3, sales-pipeline-driven)
 
-This is the full extracted context from the v1 draft (received via WhatsApp, originally
-generated in `~/Desktop/codex/butan-landing`) plus company facts from Butan's other
-systems, rewritten as the spec this site is built against. Treat this file as the
-"prompt" — anyone (or any model) should be able to rebuild the site from this document.
+v3 supersedes the v2 brief. New inputs: z21studio.com (design reference), the Notion
+Butan Solar command center (Sales FAQ, Sales Pipeline DB), and past Gamma proposal
+decks (JARING 383 kWp, BHPetrol SelCo+BESS prompt). Treat this file as the prompt —
+the site should be rebuildable from this document alone.
 
-## 1. Company identity
+## 1. Company identity (corrected in v3 — stronger than v2 told it)
 
-- **Entity:** BUTAN SOLAR SDN BHD — SSM 202501046131 (1647539-M), incorporated 2025.
-  Sister company of Butan Construction; the engineering team's track record (30+ years)
-  belongs to the team/Butan Construction, NOT to the 2025 entity. Copy must say
-  "team with 30+ years engineering experience", never "company with 30 years".
-- **Business:** Commercial & Industrial (C&I) solar EPCC in Malaysia —
-  engineering, procurement, construction, commissioning.
-- **Two delivery models:**
-  1. **Outright purchase** — client owns the system; typical payback ~3 years.
-  2. **Zero CapEx** — Butan funds the system, client buys energy **from RM0.475/kWh**;
-     RM0 upfront, immediate OPEX savings.
-- **Largest system delivered:** 999 kWp (Eng Beng Manufacturing).
-- **Contact:** phone/WhatsApp **+60 11-1668 8339** (`wa.me/601116688339`),
-  email **butansolar@gmail.com**.
-- **Campaign:** discount code **`2bob2butan`** = 2% discount. Must be configurable
-  in one place (it appears in hero badge, WhatsApp message, footer).
+- **Butan Construction Sdn Bhd, established 1996**, Klang, Selangor — trading as
+  **Butan Solar**. Nearly 30 years in piling, foundations, civil engineering.
+- **Butan Solar Sdn Bhd** — SSM 202501046131 (1647539-M), incorporated 2025 (both
+  entities in footer).
+- **Credentials (all real, all verifiable):**
+  - CIDB **Grade 7** contractor (unlimited project size)
+  - **SEDA Registered PV Service Provider** — verifiable at the public SEDA directory
+  - **Registered Photovoltaic Investor (RPVI)** under SEDA — the licence that makes
+    Zero CapEx / SARE PPA deals possible
+  - **ST Class A** registered electrical contractor (all voltage levels)
+  - LONGi Malaysian distributor · Solis inverter partner
+  - Full EPCC + comprehensive all-risk insurance during installation
+- **Contact:** +60 11-1668 8339 (call/WhatsApp, `wa.me/601116688339`),
+  butansolar@gmail.com. Campaign code **`2bob2butan`** = 2% discount (one config place).
 
-## 2. Purpose & conversion strategy (unchanged from v1 intent)
+## 2. Purpose: feed the Sales Pipeline
 
-Single-offer landing page whose only job is to produce a WhatsApp conversation.
+The site's job is to create qualified leads in Bob's **Notion Sales Pipeline** database
+(collection `721ba9db-a791-834b-841a-079d2df33929`) and start WhatsApp conversations.
 
-- **Primary CTA everywhere:** "Get proposal on WhatsApp".
-- **Lead form asks exactly two things:** company name + monthly bill range (RM).
-  On submit: build a pre-filled WhatsApp message (company, bill range, estimated
-  system size & savings, campaign code) → open `wa.me` link → also fire an email
-  notification via FormSubmit AJAX (`https://formsubmit.co/ajax/butansolar@gmail.com`).
-  WhatsApp is the primary channel; email is best-effort backup.
-  ⚠️ FormSubmit requires one-time activation: the first real submission emails a
-  confirmation link to butansolar@gmail.com — someone must click it or emails silently drop.
-- **Mobile sticky bottom bar:** Call | WhatsApp (mobile is the main traffic source).
-- **Bill-to-savings estimator** driven by the bill-range selection (bands in §5).
+**Lead flow on form submit (order matters — WhatsApp first, before any await):**
+1. Open pre-filled WhatsApp message (`wa.me/601116688339`).
+2. `POST /api/lead` (Vercel serverless) →
+   - Notion page in Sales Pipeline: `Name`, `Lead Status: Cold`,
+     `Client Type: Commercial|Residential`, `Financing: Outright|0 capex|Bank loan`
+     (omitted if "not sure"), `Description/Issue` = "Website lead — bill range,
+     phone, date". Source noted in Description (no schema mutation).
+   - Notification email via FormSubmit AJAX server-side → **chongyao1@gmail.com**,
+     cc butansolar@gmail.com. ⚠️ One-time FormSubmit activation on first submission.
+3. If the API fails, the visitor is already in WhatsApp; status text degrades gracefully.
 
-## 3. Truthfulness constraints (why v1 was rejected)
+**Form fields (map 1:1 to pipeline):** name/company · client type (Business/Home) ·
+monthly bill range · financing interest · phone (optional). Honeypot field for spam.
 
-The v1 draft fabricated credibility. The rebuild enforces these rules **structurally**:
+## 3. Truthfulness constraints (unchanged from v2, structural)
 
-1. **No fabricated testimonials.** v1 invented quotes attributed to real clients
-   (e.g. "Finance Director, Integrated Formway"). The testimonial section exists in
-   code behind `CONFIG.showTestimonials = false` and ships EMPTY. It renders only
-   when approved, attributed quotes are added to `TESTIMONIALS`.
-2. **Modeled numbers must say so.** Project financials (before/after bills, cost,
-   payback) are modeled estimates until signed-off actuals replace them. Every
-   project has `verified: false` → card shows a "Modeled estimate" tag. Flip to
-   `true` per project once Bob confirms the numbers from the accounting data.
-3. **No stock photos passed off as our installs.** No Unsplash. Projects render a
-   branded placeholder visual until a real site photo path is set in `photo`.
-   Hero uses an owned SVG illustration, not a stock photo.
-4. **Footer carries the legal identity:** company name + SSM number.
+1. Testimonials ship EMPTY behind `CONFIG.showTestimonials=false` until approved quotes.
+2. Project RM figures carry `verified:false` → "Modeled estimate" tag until confirmed.
+3. No stock photos as installs — owned SVG artwork + branded placeholders with `photo` slots.
+4. Footer carries both legal entities. "30 years" = Butan Construction/team, est. 1996.
 
-## 4. Client portfolio (real names — from v1, confirmed by Bob's project docs)
+## 4. Content pillars (extracted from Gamma proposals + Sales FAQ)
 
-IKON Connaught (mall + office, KL) · BONIA Warehouse (Selangor) · Carlo Rino
-Warehouse (Selangor) · Dasher Office (KL, office + cafe) · DSS BHD Nilai ·
-DSS BHD Puchong · Micro CTRL · Eng Beng Manufacturing (factory, 999 kWp) ·
-ePARK Residence (2 residential blocks) · Integrated Formway · Integrated Plastic
-Kogyo · JYC Battery A · JYC Battery B · VES Industrial · Biotek Abadi ·
-Wheelcorp Premium.
+- **Numbers band (z21-style):** Since 1996 · CIDB Grade 7 · ~1.9 MWp across featured
+  projects · largest single site 999 kWp · Zero CapEx from RM0.475/kWh.
+- **Journey (~3 months contract → live):** site survey & load study → design freeze
+  (~2 wks) → procurement (4–6 wks) → installation (4–6 wks) → TNB commissioning &
+  handover → 1–2 yr free O&M + 2 yr DLP.
+- **Three ways to pay** (matches pipeline `Financing`): Outright (payback ~3.5–4.6 yr
+  with GITA+CA) · Zero CapEx SARE PPA (RM0 upfront, Butan invests/owns/maintains as
+  RPVI, client buys energy from RM0.475/kWh) · Bank loan.
+- **Tax incentives:** GITA (60% of capex) + Capital Allowance → up to ~38% of system
+  cost recovered via tax; JARING worked example: RM 632,189 system, RM 242,760 tax
+  benefit, payback 4.6 → 3.5 years. Modeled label; GITA submitted to MGTC on completion.
+- **Equipment (Tier-1 only):** LONGi Hi-MO 7 615W N-type TOPCon (25-yr performance,
+  12-yr product, 0.40%/yr degradation) · Huawei (premium, FusionSolar) or Solis
+  (value, Solis Cloud) inverters, both 10-yr warranty + built-in AFCI ·
+  JJ-Lapp/Helukabel DC cables · genuine Stäubli MC4 · Butan-fabricated mounting
+  (15-yr) · 2-yr DLP · 1–2 yr complimentary O&M · all-risk insurance. RSD (Fonrich)
+  optional, BOMBA-recommended. No microinverters (reliability in MY heat).
+- **Schemes:** Solar ATAP (current policy, replaced NEM 3.0 Jan 2026 — no quota,
+  10-yr tenure, all TNB customers) · SelCo zero-export (BESS mandatory >72 kWp
+  non-domestic) · SARE/PPA for non-owners.
+- **Residential path:** ATAP limits 5 kWac single-phase / 15 kWac three-phase,
+  ~2–3 month timeline, same Tier-1 kit, self-consumption = best savings.
+- **Estimator (Butan's own rule of thumb, labeled modeled):**
+  Daily kWh = kWp × 4 PSH × 82.5% efficiency; ~60.9 kWh/month per 615W panel.
+- **FAQ answers** from the Sales FAQ page, incl. "Your website looks new — are you
+  legit?" → est. 1996, CIDB Grade 7, verify at SEDA directory.
+- **Payment structure:** milestone-based (typically 40/40/20); deposit refunded if
+  ATAP/SelCo approval fails.
 
-### Featured projects (8) — sizes are real; RM figures MODELED until verified
+## 5. Featured projects & clients (same dataset as v2)
 
-| Project | Type / Location | Model | Size | Before → After (modeled) | Cost (modeled) | Payback |
-|---|---|---|---|---|---|---|
-| IKON Connaught | Mall + Office, KL | Outright | 185.73 kWp | RM54.5k → RM31.9k | RM770k | 2.8–3.4 yr |
-| BONIA Warehouse | Warehouse, Selangor | Outright | 75 kWp | RM21.7k → RM12.9k | RM300k | 2.9–3.5 yr |
-| Carlo Rino Warehouse | Warehouse, Selangor | Outright | 83.025 kWp | RM24.2k → RM14.3k | RM337k | 2.9–3.6 yr |
-| Dasher Office | Office + Cafe, KL | Outright | 52.5 kWp | RM15.6k → RM9.1k | RM214k | 2.8–3.5 yr |
-| Eng Beng Manufacturing | Factory | Outright | 999 kWp | RM286k → RM166.5k | RM3.98m | 2.8–3.4 yr |
-| ePARK Residence | 2 residential blocks | Zero CapEx @ RM0.475 | 237.39 kWp | RM68.9k → RM50.6k | RM0 upfront | immediate |
-| Integrated Formway | Factory | Zero CapEx @ RM0.475 | 172.2 kWp | RM49.3k → RM36.7k | RM0 upfront | immediate |
-| Integrated Plastic Kogyo | Factory | Zero CapEx @ RM0.475 | 92.25 kWp | RM26.6k → RM19.4k | RM0 upfront | immediate |
+8 delivered projects (sizes real, RM modeled until verified): IKON Connaught 185.73 ·
+BONIA 75 · Carlo Rino 83.025 · Dasher 52.5 · Eng Beng 999 · ePARK 237.39 (0-capex) ·
+Integrated Formway 172.2 (0-capex) · Integrated Plastic Kogyo 92.25 (0-capex) kWp.
+Client wall adds: DSS BHD Nilai & Puchong, Micro CTRL, JYC Battery A & B,
+VES Industrial, Biotek Abadi, Wheelcorp Premium.
 
-## 5. Estimator bill bands (monthly TNB bill → modeled outcome)
+## 6. Design system (reference: z21studio.com)
 
-| Bill range (RM/mo) | System | Savings /mo | Savings /yr |
-|---|---|---|---|
-| Below 10k | 35–70 kWp | RM2.5k–6k | RM30k–72k |
-| 10k–25k | 70–160 kWp | RM6k–12k | RM72k–144k |
-| 25k–50k | 180–320 kWp | RM10k–22k | RM120k–264k |
-| 50k–100k | 320–700 kWp | RM22k–46k | RM264k–552k |
-| Above 100k | 700 kWp–1.5 MWp | RM46k–100k+ | RM552k–1.2m+ |
+Editorial light theme: white/near-white, generous whitespace, ONE bold accent
+(Butan orange #ff6900), Sora display + Manrope text, full-bleed stat band with huge
+numerals, soft-shadow cards, long-form funnel storytelling ending at the lead form,
+scroll reveals (off under prefers-reduced-motion), mobile sticky Call|WhatsApp bar,
+WCAG-AA contrast, semantic landmarks.
 
-Estimator output is always labeled "modeled estimate — confirmed after site assessment".
+## 7. Architecture
 
-## 6. Page structure (v2)
+Static HTML/CSS/JS + one Vercel serverless function. No framework, no build step.
 
-1. **Topbar** — brand, anchor nav, call button (sticky).
-2. **Hero** — headline on Zero CapEx + savings; sub on EPCC credibility; CTAs
-   (WhatsApp proposal / view projects); campaign-code badge; owned SVG panel artwork
-   with floating stat chips (999 kWp, Outright + 0 CapEx).
-3. **Trust band** — 4 chips: 30+ yrs team experience · up to 999 kWp · Zero CapEx
-   from RM0.475/kWh · fast WhatsApp reply.
-4. **Two models compared** — Outright vs Zero CapEx side-by-side card comparison
-   (new in v2; this is the core commercial decision for a C&I buyer).
-5. **Featured projects** — 8 data-driven cards: size/type/location real, RM metrics
-   tagged "Modeled estimate" until `verified: true`, photo slot with branded fallback.
-6. **Client wall** — animated marquee of the 16 client names + sectors
-   (pauses on hover, disabled under `prefers-reduced-motion`).
-7. **Estimator + lead form** — bill-band selector previews modeled outcome; 2-field
-   form → WhatsApp + FormSubmit email.
-8. **Testimonials** — hidden until real quotes exist (§3.1).
-9. **FAQ** — 4 short C&I objections (roof suitability, downtime, maintenance, Zero CapEx terms).
-10. **Footer** — legal entity + SSM, contact, campaign code.
-11. **Mobile sticky Call | WhatsApp bar.**
+```
+index.html   markup only          data.js    ALL editable content
+styles.css   design system        script.js  render + estimator + lead flow
+api/lead.js  Notion + email       BRIEF.md / README.md
+```
 
-## 7. Technical requirements
+`api/lead.js` needs env var `NOTION_TOKEN` (Notion internal integration shared with
+the Sales Pipeline DB). Data source ID: `721ba9db-a791-834b-841a-079d2df33929`.
 
-- **Stack:** static HTML + CSS + vanilla JS, no build step (GitHub Pages / Vercel ready).
-- **All content data lives in `data.js`** (CONFIG, BILL_BANDS, CLIENTS, PROJECTS,
-  TESTIMONIALS, FAQ) — copy edits never touch markup or logic.
-- **Design:** light, premium; orange accent `#ff6900`; Sora (display) + Manrope (text)
-  via Google Fonts; generous whitespace; subtle reveal-on-scroll (IntersectionObserver,
-  off under `prefers-reduced-motion`).
-- **SEO/meta:** title, description, Open Graph, canonical placeholder, JSON-LD
-  LocalBusiness (name, phone, email), inline SVG favicon.
-- **Accessibility:** semantic landmarks, labels on all inputs, `aria-live` form status,
-  visible focus states, WCAG-AA contrast.
-- **Performance:** no frameworks, no stock-photo payloads; fonts are the only
-  external requests.
+## 8. Deploy & go-live checklist
 
-## 8. Deploy & next steps
-
-- Repo: `github.com/fmcog/butanwebsite` (currently empty) → GitHub Pages or Vercel.
-- Before go-live: activate FormSubmit (§2), confirm project RM figures (§4),
-  collect real site photos, decide on a proper domain + email
-  (butansolar@gmail.com works but a domain email looks better on a premium page).
+- Repo `fmcog/butanwebsite` → Vercel (Bob's account).
+- [ ] Create Notion internal integration, share Sales Pipeline DB, set NOTION_TOKEN
+- [ ] FormSubmit activation click (first submission emails a confirm link)
+- [ ] Test lead end-to-end → archive test row
+- [ ] Later: verified RM figures, real photos, approved testimonials, custom domain,
+      add "website" option to pipeline `Source` select
