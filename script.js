@@ -23,8 +23,9 @@ function renderSafety() {
   ul("safety-eyebrow").textContent = SAFETY.eyebrow;
   ul("safety-h").textContent = SAFETY.headline;
   ul("safety-intro").textContent = SAFETY.intro;
-  ul("safety-grid").innerHTML = SAFETY.points.map((p) => `
-    <article class="safety-card">
+  ul("safety-grid").innerHTML = SAFETY.points.map((p, i) => `
+    <article class="safety-card${p.sun ? " sun" : ""}">
+      <div class="chip">${i + 1}</div>
       <h3>${p.title}</h3>
       <p>${p.text}</p>
     </article>

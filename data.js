@@ -62,6 +62,7 @@ const SAFETY = {
     },
     {
       title: "Rapid shutdown makes it safe",
+      sun: true,
       text: "A rapid shutdown device drops every panel to about 1 volt the instant power is cut — so the roof is safe to touch and safe to fight. Recommended by BOMBA. We specify Fonrich RSD on every design and tell you plainly what it costs."
     },
     {

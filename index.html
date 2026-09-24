@@ -14,11 +14,13 @@
   <meta property="og:url" content="https://butanwebsite.vercel.app/">
   <meta property="og:locale" content="en_MY">
   <meta name="twitter:card" content="summary">
-  <meta name="theme-color" content="#ffffff">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%23ff6900'/%3E%3Cpath d='M16 6v4M16 22v4M6 16h4M22 16h4M9 9l2.8 2.8M20.2 20.2 23 23M23 9l-2.8 2.8M11.8 20.2 9 23' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#fbf5e9">
+  <link rel="icon" href="./assets/butan-solar-mark.png" type="image/png">
+  <link rel="apple-touch-icon" href="./assets/butan-solar-mark.png">
+  <meta property="og:image" content="https://butanwebsite.vercel.app/assets/butan-solar-mark.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
   <script type="application/ld+json">
   {
@@ -78,10 +80,7 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <a href="#top" class="brand" aria-label="Butan Solar home">
-        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
-          <circle cx="16" cy="16" r="13" fill="currentColor"/>
-          <path d="M16 6v4M16 22v4M6 16h4M22 16h4M9 9l2.8 2.8M20.2 20.2 23 23M23 9l-2.8 2.8M11.8 20.2 9 23" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
-        </svg>
+        <img class="brand-logo" src="./assets/butan-solar-mark.png" alt="" width="34" height="34">
         <span>Butan Solar</span>
       </a>
       <nav class="desktop-nav" aria-label="Sections">
@@ -109,6 +108,13 @@
         </div>
         <ul class="credential-row" id="credential-row" aria-label="Credentials"></ul>
       </div>
+      <svg class="arch" viewBox="0 0 520 300" aria-hidden="true">
+        <g fill="none" stroke="#5d6e63" stroke-width="1" opacity="0.55">
+          <circle cx="360" cy="300" r="120"/><circle cx="360" cy="300" r="160"/><circle cx="360" cy="300" r="200"/>
+        </g>
+        <path fill="#f3ba3b" d="M240 300 L240 210 Q240 90 360 90 L520 90 L520 300 Z"/>
+        <circle fill="#f3ba3b" cx="200" cy="80" r="22"/>
+      </svg>
     </section>
 
     <section class="section rules" id="numbers" aria-labelledby="numbers-h">
@@ -121,6 +127,9 @@
     </section>
 
     <section class="section safety" id="safety" aria-labelledby="safety-h">
+      <svg class="rings" viewBox="0 0 420 420" aria-hidden="true" fill="none" stroke="#5d6e63" stroke-width="1">
+        <circle cx="210" cy="210" r="90"/><circle cx="210" cy="210" r="130"/><circle cx="210" cy="210" r="170"/><circle cx="210" cy="210" r="210"/>
+      </svg>
       <div class="container">
         <p class="eyebrow" id="safety-eyebrow"></p>
         <h2 id="safety-h"></h2>
@@ -212,7 +221,7 @@
 
   <footer class="footer">
     <div class="container">
-      <p class="footer-brand">Butan Solar</p>
+      <p class="footer-brand"><img class="brand-logo" src="./assets/butan-solar-mark.png" alt="" width="34" height="34"> Butan Solar</p>
       <p class="fine" id="footer-legal-1"></p>
       <p class="fine" id="footer-legal-2"></p>
       <p class="fine">Verify us: <a class="u" id="seda-link" href="#" target="_blank" rel="noopener noreferrer">SEDA PV Service Provider Directory</a> · <a class="u" href="tel:+601116688339">+60 11-1668 8339</a> · <a class="u" href="mailto:butansolar@gmail.com">butansolar@gmail.com</a></p>
