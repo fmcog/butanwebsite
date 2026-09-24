@@ -21,7 +21,8 @@ degrades gracefully without it — WhatsApp still opens.)
 - `data.js` — **all editable content**: config, credentials, stats, journey,
   financing models, tax story, projects, clients, equipment, residential, FAQ, bill bands
 - `script.js` — rendering + estimator + lead flow
-- `api/lead.js` — Vercel function: Notion Sales Pipeline write + email notification
+- `api/lead.js` — Vercel function: Notion Sales Pipeline write
+- `api/content.js` — Vercel function: reads the Notion Website Content DB (gallery + logos)
 
 ## Lead flow
 
@@ -40,6 +41,21 @@ On submit: WhatsApp opens immediately with a pre-filled message, then `POST /api
 2. **FormSubmit activation** (one-time): the first submission emails a confirmation
    link to chongyao1@gmail.com — click it, or email notifications silently drop.
 3. Deploy; test a lead end-to-end; archive the test row in Notion.
+
+## Photos & logos — edited in Notion (the CMS)
+
+Open **Butan Solar → 🖼️ Website Content** in Notion. Each row is either a
+`Project` (photo gallery) or a `Client logo` (scrolling "Trusted by" bar).
+
+- Upload to **Photo** (project: landscape, ~1600px wide; logo: PNG/SVG with
+  transparent background), fill **Caption / Size / Model**, set **Order**,
+  tick **Published**.
+- The site (`/api/content`) re-reads the database every 5 minutes. Untick
+  Published to hide a row; delete nothing.
+- If Notion is unreachable, the site falls back to the names in `data.js`.
+
+The Notion integration must be connected to this database as well as to the
+Sales Pipeline (⋯ → Connections on the database page).
 
 ## Content rules
 

@@ -42,19 +42,47 @@ function renderFinancing() {
   `).join("");
 }
 
-function renderWork() {
+function renderClients(clients) {
+  const track = ul("client-track");
+  const list = ul("client-list");
+  if (!track || !clients.length) return;
+  const chip = (c) => `<div class="logo-chip">${c.logo ? `<img src="${c.logo}" alt="${c.name}" loading="lazy">` : c.name}</div>`;
+  /* Duplicated so the -50% translate loops seamlessly. */
+  track.innerHTML = clients.concat(clients).map(chip).join("");
+  list.innerHTML = clients.map((c) => `<li>${c.name}</li>`).join("");
+}
+
+function renderGallery(projects) {
+  const grid = ul("gallery");
+  if (!grid) return;
+  grid.innerHTML = projects.map((p, i) => `
+    <figure${i === 0 ? ' class="feature"' : ""}>
+      ${p.photo ? `<img src="${p.photo}" alt="${p.name} — ${p.size} rooftop solar" loading="lazy">` : `<div class="placeholder"></div>`}
+      <figcaption>
+        <span><span class="cap-name">${p.name}</span><span class="cap-sub">${p.caption || p.type || ""}</span></span>
+        <span><span class="cap-size">${p.size}</span><span class="cap-model">${p.model}</span></span>
+      </figcaption>
+    </figure>
+  `).join("");
+}
+
+function renderProcess() {
   ul("process").innerHTML = PROCESS.map((s) => `
-    <li><div><h3>${s.title}</h3><p>${s.text}</p></div></li>
+    <li><h3>${s.title}</h3><p>${s.text}</p></li>
   `).join("");
-  ul("project-list").innerHTML = PROJECTS.map((p) => `
-    <li>
-      <span class="project-name">${p.name}</span>
-      <span class="project-size">${p.size}</span>
-      <span class="project-type">${p.type}</span>
-      <span class="project-model">${p.model}</span>
-    </li>
-  `).join("");
-  ul("more-clients").textContent = "Also: " + MORE_CLIENTS.join(" · ") + ".";
+}
+
+/* Content comes from Notion (via /api/content) when available; data.js is the fallback. */
+async function loadContent() {
+  renderClients(CLIENTS);
+  renderGallery(PROJECTS);
+  try {
+    const r = await fetch(CONFIG.contentEndpoint);
+    if (!r.ok) return;
+    const data = await r.json();
+    if (data.projects?.length) renderGallery(data.projects);
+    if (data.clients?.length) renderClients(data.clients);
+  } catch { /* keep fallback */ }
 }
 
 function renderFaq() {
@@ -196,7 +224,8 @@ renderCredentials();
 renderRules();
 renderSafety();
 renderFinancing();
-renderWork();
+renderProcess();
+loadContent();
 renderFaq();
 renderFooter();
 fillBillRangeOptions();

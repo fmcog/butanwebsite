@@ -10,6 +10,7 @@ const CONFIG = {
   whatsappNumber: "601116688339",
   teamEmail: "butansolar@gmail.com",
   leadEndpoint: "/api/lead",
+  contentEndpoint: "/api/content",
   /* Email notifications go browser → FormSubmit (datacenter IPs are blocked,
      so this cannot live in the serverless function). Needs one-time activation. */
   notifyEmailEndpoint: "https://formsubmit.co/ajax/chongyao1@gmail.com",
@@ -93,9 +94,9 @@ const FINANCING_MODELS = [
   }
 ];
 
-/* Delivered systems. Sizes are real. */
+/* Fallback gallery data; Notion "Website Content" rows (with photos) override this when live. */
 const PROJECTS = [
-  { name: "Eng Beng Manufacturing", type: "Factory", size: "999 kWp", model: "Outright" },
+  { name: "Eng Beng Manufacturing", type: "Factory", size: "999 kWp", model: "Outright", photo: "" },
   { name: "ePARK Residence", type: "Residential blocks", size: "237 kWp", model: "Zero CapEx" },
   { name: "IKON Connaught", type: "Mall + office, KL", size: "186 kWp", model: "Outright" },
   { name: "Integrated Formway", type: "Factory", size: "172 kWp", model: "Zero CapEx" },
@@ -105,10 +106,12 @@ const PROJECTS = [
   { name: "Dasher Office", type: "Office + cafe, KL", size: "53 kWp", model: "Outright" }
 ];
 
-const MORE_CLIENTS = [
-  "DSS BHD Nilai", "DSS BHD Puchong", "Micro CTRL", "JYC Battery",
-  "VES Industrial", "Biotek Abadi", "Wheelcorp Premium"
-];
+/* Fallback for the trusted-by marquee; Notion "Website Content" rows override this when live. */
+const CLIENTS = [
+  "IKON Connaught", "BONIA", "Carlo Rino", "Dasher", "DSS BHD", "Micro CTRL",
+  "Eng Beng Manufacturing", "ePARK Residence", "Integrated Formway",
+  "Integrated Plastic Kogyo", "JYC Battery", "VES Industrial", "Biotek Abadi", "Wheelcorp Premium"
+].map((name) => ({ name, logo: "" }));
 
 const PROCESS = [
   { title: "Load study", text: "We read 12 months of TNB bills and size to your real daytime load — not to your roof." },
