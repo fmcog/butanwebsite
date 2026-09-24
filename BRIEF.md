@@ -1,3 +1,7 @@
+# v4 addendum (2026-09-24) — sharp angle, SEO/GEO
+
+Bob's brief: v3 was cluttered and text-heavy with no sharp angle. v4 cuts copy to ~900 words and leads with the honest-engineer position: **DC fire risk** (DC arcs don't self-extinguish; substandard e-commerce MC4/DC cable → contact resistance → fire; Bomba won't spray a live array; rapid shutdown fixes it), plus **three rules of thumb** — investment ≈ **18× monthly bill**, **~RM1/panel/day**, **~RM1.1k/panel installed**. The estimator derives from these three so the site never contradicts itself. Project cards drop modeled RM figures entirely (sizes only). SEO/GEO: canonical, OG, Organization+LocalBusiness+FAQPage JSON-LD, answer-first FAQ, robots.txt, sitemap.xml, llms.txt. Everything below is the v3 spec and remains the source for company facts.
+
 # Butan Solar Website — Build Brief (v3, sales-pipeline-driven)
 
 v3 supersedes the v2 brief. New inputs: z21studio.com (design reference), the Notion

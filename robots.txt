@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://butanwebsite.vercel.app/sitemap.xml
