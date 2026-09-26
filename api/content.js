@@ -10,6 +10,9 @@
  * which must also be connected to the Website Content database.
  */
 
+/* Accept the misspelled key Vercel refuses to rename (sensitive vars are immutable). */
+const NOTION_TOKEN = process.env.NOTION_TOKEN || process.env.NOTIION_TOKEN;
+
 const DATABASE_ID = "edcfddf2-7f78-49c2-b007-9432c43d7949";
 
 function text(prop) {
@@ -29,7 +32,7 @@ async function queryAll() {
     const res = await fetch(`https://api.notion.com/v1/databases/${DATABASE_ID}/query`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
+        Authorization: `Bearer ${NOTION_TOKEN}`,
         "Notion-Version": "2022-06-28",
         "Content-Type": "application/json"
       },
@@ -50,7 +53,7 @@ async function queryAll() {
 
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  if (!process.env.NOTION_TOKEN) {
+  if (!NOTION_TOKEN) {
     return res.status(503).json({ ok: false, error: "NOTION_TOKEN not set" });
   }
   try {

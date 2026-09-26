@@ -15,6 +15,9 @@
  * this function. This endpoint handles the Notion pipeline write only.
  */
 
+/* Accept the misspelled key Vercel refuses to rename (sensitive vars are immutable). */
+const NOTION_TOKEN = process.env.NOTION_TOKEN || process.env.NOTIION_TOKEN;
+
 const NOTION_DATA_SOURCE_ID = "721ba9db-a791-834b-841a-079d2df33929";
 
 const VALID_CLIENT_TYPES = new Set(["Commercial", "Residential"]);
@@ -40,7 +43,7 @@ async function createNotionLead({ companyName, clientType, financing, descriptio
   const res = await fetch("https://api.notion.com/v1/pages", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
+      Authorization: `Bearer ${NOTION_TOKEN}`,
       "Notion-Version": "2022-06-28",
       "Content-Type": "application/json"
     },
@@ -90,7 +93,7 @@ module.exports = async function handler(req, res) {
 
   const results = { notion: false };
 
-  if (process.env.NOTION_TOKEN) {
+  if (NOTION_TOKEN) {
     try {
       await createNotionLead({ companyName, clientType, financing, description });
       results.notion = true;
