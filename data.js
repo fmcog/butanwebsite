@@ -22,10 +22,10 @@ const CONFIG = {
 };
 
 const CREDENTIALS = [
-  "Since 1996",
-  "CIDB Grade 7",
-  "SEDA Registered",
-  "ST Class A"
+  { label: "Building since", value: "1996" },
+  { label: "CIDB registration", value: "Grade 7" },
+  { label: "SEDA", value: "Registered" },
+  { label: "Suruhanjaya Tenaga", value: "Class A" }
 ];
 
 /* The three numbers every buyer actually wants. Butan's rules of thumb. */
@@ -38,7 +38,7 @@ const RULES = [
   {
     value: "RM1",
     title: "per panel, per day",
-    text: "One 615 W panel offsets roughly RM1 of electricity a day in Malaysian sun. 100 panels, about RM3,000 a month — before tariff hikes."
+    text: "One panel offsets roughly RM1 of electricity a day in Malaysian sun. 100 panels, about RM3,000 a month — before tariff hikes."
   },
   {
     value: "RM1.1k",
@@ -106,7 +106,8 @@ const PROJECTS = [
   { name: "Dasher Office", type: "Office + cafe, KL", size: "53 kWp", model: "Outright" }
 ];
 
-/* Fallback for the trusted-by marquee; Notion "Website Content" rows override this when live. */
+/* Fallback for the trusted-by marquee; Notion "Website Content" rows override this when live.
+   To use a local logo file instead, drop it in assets/logos/ and set logo: "./assets/logos/<file>". */
 const CLIENTS = [
   "IKON Connaught", "BONIA", "Carlo Rino", "Dasher", "DSS BHD", "Micro CTRL",
   "Eng Beng Manufacturing", "ePARK Residence", "Integrated Formway",

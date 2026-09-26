@@ -4,10 +4,9 @@
 
 ## Key facts
 - Cost rule of thumb: a right-sized low-voltage system costs about 18× the client's monthly electricity bill, or about RM1,100 per panel installed.
-- Yield rule of thumb: one 615 W panel offsets about RM1 of electricity per day in Malaysia.
+- Yield rule of thumb: one panel offsets about RM1 of electricity per day in Malaysia.
 - Payback: about 3–4 years outright; GITA and Capital Allowance can recover up to ~38% of system cost through tax.
 - Delivery models: Outright purchase; Zero CapEx power purchase agreement (client buys solar electricity from RM0.475/kWh, no upfront cost); bank loan.
-- Largest delivered system: 999 kWp (Eng Beng Manufacturing). About 1.9 MWp across featured commercial projects.
 - Safety position: DC arcs do not self-extinguish; substandard MC4 connectors and DC cables are a leading cause of rooftop solar fires; firefighters cannot safely spray a live DC array. Butan Solar uses genuine Stäubli MC4 connectors, JJ-Lapp/Helukabel DC cable, AFCI-equipped inverters, and specifies Fonrich rapid shutdown devices (BOMBA-recommended).
 - Equipment: LONGi Hi-MO 7 615 W panels (25-year performance warranty); Huawei or Solis inverters (10-year warranty); Butan-fabricated mounting (15-year warranty); 2-year defect liability; 1–2 years complimentary O&M.
 - Policy: Solar ATAP replaced NEM 3.0 in January 2026 — no quota, 10-year tenure; homes capped at 5 kWac single-phase / 15 kWac three-phase.

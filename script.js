@@ -4,7 +4,7 @@ const ul = (id) => document.getElementById(id);
 
 function renderCredentials() {
   const row = ul("credential-row");
-  if (row) row.innerHTML = CREDENTIALS.map((c) => `<li>${c}</li>`).join("");
+  if (row) row.innerHTML = CREDENTIALS.map((c) => `<li><span class="cred-label">${c.label}</span><span class="cred-value">${c.value}</span></li>`).join("");
 }
 
 function renderRules() {
@@ -57,10 +57,10 @@ function renderGallery(projects) {
   if (!grid) return;
   grid.innerHTML = projects.map((p, i) => `
     <figure${i === 0 ? ' class="feature"' : ""}>
-      ${p.photo ? `<img src="${p.photo}" alt="${p.name} — ${p.size} rooftop solar" loading="lazy">` : `<div class="placeholder"></div>`}
+      ${p.photo ? `<img src="${p.photo}" alt="${p.name} rooftop solar by Butan Solar" loading="lazy">` : `<div class="placeholder"></div>`}
       <figcaption>
         <span><span class="cap-name">${p.name}</span><span class="cap-sub">${p.caption || p.type || ""}</span></span>
-        <span><span class="cap-size">${p.size}</span><span class="cap-model">${p.model}</span></span>
+        <span class="cap-model">${p.model}</span>
       </figcaption>
     </figure>
   `).join("");
