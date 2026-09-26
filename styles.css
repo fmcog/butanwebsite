@@ -122,7 +122,7 @@ h3 { font-size: 1.19rem; line-height: 1.25; }
 .trusted { padding: 28px 0 36px; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); background: var(--surface-200); }
 .trusted .container > .eyebrow { background: none; color: var(--ink-muted); padding: 0; }
 .marquee { overflow: hidden; margin-top: 12px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.marquee-track { display: flex; width: max-content; gap: 12px; animation: marquee 24s linear infinite; }
+.marquee-track { display: flex; width: max-content; gap: 12px; animation: marquee 12s linear infinite; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 /* Every logo is scaled to fill the same box; multiply blend turns white
    logo backgrounds transparent against the cream chip. */
