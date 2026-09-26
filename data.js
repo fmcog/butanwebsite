@@ -112,7 +112,7 @@ const CLIENTS = [
   "IKON Connaught", "BONIA", "Carlo Rino", "Dasher", "DSS BHD", "Micro CTRL",
   "Eng Beng Manufacturing", "ePARK Residence", "Integrated Formway",
   "Integrated Plastic Kogyo", "JYC Battery", "VES Industrial", "Biotek Abadi", "Wheelcorp Premium"
-].map((name) => ({ name, logo: "" }));
+].map((name) => ({ name, logo: name === "Dasher" ? "./assets/logos/dasher.png" : "" }));
 
 const PROCESS = [
   { title: "Load study", text: "We read 12 months of TNB bills and size to your real daytime load — not to your roof." },
