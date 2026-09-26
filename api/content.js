@@ -68,7 +68,10 @@ module.exports = async function handler(req, res) {
     for (const row of rows) {
       const p = row.properties;
       const name = text(p.Name);
-      const logo = fileUrl(p.Logo);
+      const rawLogo = fileUrl(p.Logo);
+      /* Route Notion logos through /api/logo so padding is trimmed and every
+         mark fills the chip the same way. */
+      const logo = rawLogo ? `/api/logo?src=${encodeURIComponent(rawLogo)}` : "";
       const type = p.Type?.select?.name;
       if (type === "Client logo") clients.push({ name, logo });
       else if (logo && !coveredByClientRow(name)) clients.push({ name, logo });
