@@ -35,7 +35,7 @@ img { display: block; max-width: 100%; }
 .section { padding: clamp(3.2rem, 8vw, 6rem) 0; }
 
 h1, h2, h3 { font-family: var(--font-display); font-weight: 800; margin: 0 0 0.55em; color: var(--ink); letter-spacing: -0.015em; }
-h1 { font-size: clamp(2.5rem, 7vw, 4.6rem); line-height: 1; max-width: 13ch; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); line-height: 1; max-width: 13ch; }
 h2 { font-size: clamp(1.7rem, 3.8vw, 2.6rem); line-height: 1.1; max-width: 24ch; }
 h3 { font-size: 1.19rem; line-height: 1.25; }
 
@@ -69,12 +69,21 @@ h3 { font-size: 1.19rem; line-height: 1.25; }
 .btn-block { width: 100%; }
 
 /* Hero — cream page with the arch motif rising at the right edge */
-.hero { position: relative; overflow: hidden; padding: clamp(3.4rem, 9vw, 7rem) 0 clamp(2.8rem, 6vw, 4.5rem); }
+.hero { position: relative; overflow: hidden; padding: clamp(2.4rem, 6vw, 4.2rem) 0 clamp(2rem, 5vw, 3.4rem); }
+/* Cover-page mood: forest ground, cream ink, sun arch — the handbook's cover composition. */
+.hero-forest { background: var(--forest-900); color: var(--cream); }
+.hero-forest h1 { color: var(--cream); }
+.hero-forest .eyebrow { color: var(--sun-400); }
+.hero-forest .btn-ghost { background: transparent; border-color: var(--forest-500); color: var(--cream); }
+.hero-forest .btn-ghost:hover { background: var(--forest-700); }
+.hero-forest .cred-grid li { background: var(--forest-700); border-color: var(--forest-500); }
+.hero-forest .cred-label { color: var(--forest-300); }
+.hero-forest .cred-value { color: var(--cream); }
 .hero .container { position: relative; z-index: 1; }
 .arch { position: absolute; right: 0; bottom: 0; width: min(46vw, 520px); height: auto; pointer-events: none; }
-.hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 0; }
 /* Credentials — four StatCards under the headline */
-.cred-grid { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 8px 0 28px; padding: 0; max-width: 760px; }
+.cred-grid { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 4px 0 22px; padding: 0; max-width: 720px; }
 .cred-grid li { background: var(--surface-200); border: 1px solid var(--border-soft); border-radius: var(--radius-md); padding: 14px 16px; }
 .cred-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
 .cred-value { display: block; font-family: var(--font-display); font-weight: 800; font-size: 1.45rem; line-height: 1.1; color: var(--ink); }
@@ -193,7 +202,7 @@ h3 { font-size: 1.19rem; line-height: 1.25; }
   .cred-grid { grid-template-columns: 1fr 1fr; }
   .desktop-nav { display: none; }
   .mobile-sticky-cta { display: grid; }
-  .hero { padding-bottom: 38vw; }
+  .hero { padding-bottom: 34vw; }
   .arch { width: 78vw; }
 }
 @media (max-width: 480px) {

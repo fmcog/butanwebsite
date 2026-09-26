@@ -83,7 +83,7 @@ const FINANCING_MODELS = [
   {
     tag: "Zero CapEx",
     title: "RM0 upfront. Buy cheaper power.",
-    text: "We fund, own and maintain the system — we're a SEDA Registered Photovoltaic Investor. You buy the energy from RM0.475/kWh, below grid tariff, from month one.",
+    text: "We fund, own and maintain the system. You buy green energy, below TNB tariff, from month one.",
     accent: true
   },
   {
@@ -94,16 +94,13 @@ const FINANCING_MODELS = [
   }
 ];
 
-/* Fallback gallery data; Notion "Website Content" rows (with photos) override this when live. */
+/* Fallback gallery data; Notion "Website Content" rows (Drone shot column) override this when live. */
 const PROJECTS = [
-  { name: "Eng Beng Manufacturing", type: "Factory", size: "999 kWp", model: "Outright", photo: "" },
-  { name: "ePARK Residence", type: "Residential blocks", size: "237 kWp", model: "Zero CapEx" },
-  { name: "IKON Connaught", type: "Mall + office, KL", size: "186 kWp", model: "Outright" },
-  { name: "Integrated Formway", type: "Factory", size: "172 kWp", model: "Zero CapEx" },
-  { name: "Integrated Plastic Kogyo", type: "Factory", size: "92 kWp", model: "Zero CapEx" },
-  { name: "Carlo Rino Warehouse", type: "Warehouse, Selangor", size: "83 kWp", model: "Outright" },
-  { name: "BONIA Warehouse", type: "Warehouse, Selangor", size: "75 kWp", model: "Outright" },
-  { name: "Dasher Office", type: "Office + cafe, KL", size: "53 kWp", model: "Outright" }
+  { name: "Eng Beng Manufacturing", caption: "Factory", model: "Outright", photo: "./assets/projects/eng-beng.jpg" },
+  { name: "IKON Connaught", caption: "Mall + office, Kuala Lumpur", model: "Outright", photo: "./assets/projects/ikon-connaught.jpg" },
+  { name: "Bodibasixs", caption: "Factory", model: "Outright", photo: "./assets/projects/bodibasixs.jpg" },
+  { name: "Petron", caption: "Petrol station canopy", model: "", photo: "./assets/projects/petron.jpg" },
+  { name: "JYC Battery", caption: "Factory", model: "", photo: "./assets/projects/jyc-battery.jpg" }
 ];
 
 /* Fallback for the trusted-by marquee; Notion "Website Content" rows override this when live.
@@ -112,7 +109,7 @@ const CLIENTS = [
   "IKON Connaught", "BONIA", "Carlo Rino", "Dasher", "DSS BHD", "Micro CTRL",
   "Eng Beng Manufacturing", "ePARK Residence", "Integrated Formway",
   "Integrated Plastic Kogyo", "JYC Battery", "VES Industrial", "Biotek Abadi", "Wheelcorp Premium"
-].map((name) => ({ name, logo: name === "Dasher" ? "./assets/logos/dasher.png" : "" }));
+].map((name) => ({ name, logo: name === "Dasher" ? "./assets/logos/dasher.png" : "" })).filter((c) => c.logo);
 
 const PROCESS = [
   { title: "Load study", text: "We read 12 months of TNB bills and size to your real daytime load — not to your roof." },

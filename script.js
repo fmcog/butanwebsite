@@ -45,6 +45,7 @@ function renderFinancing() {
 function renderClients(clients) {
   const track = ul("client-track");
   const list = ul("client-list");
+  clients = clients.filter((c) => c.logo);
   if (!track || !clients.length) return;
   const chip = (c) => `<div class="logo-chip">${c.logo ? `<img src="${c.logo}" alt="${c.name}" loading="lazy">` : c.name}</div>`;
   /* Duplicated so the -50% translate loops seamlessly. */
@@ -55,12 +56,13 @@ function renderClients(clients) {
 function renderGallery(projects) {
   const grid = ul("gallery");
   if (!grid) return;
-  grid.innerHTML = projects.map((p, i) => `
+  const withPhoto = projects.filter((p) => p.photo);
+  grid.innerHTML = withPhoto.map((p, i) => `
     <figure${i === 0 ? ' class="feature"' : ""}>
-      ${p.photo ? `<img src="${p.photo}" alt="${p.name} rooftop solar by Butan Solar" loading="lazy">` : `<div class="placeholder"></div>`}
+      <img src="${p.photo}" alt="${p.name} rooftop solar by Butan Solar" loading="lazy">
       <figcaption>
         <span><span class="cap-name">${p.name}</span><span class="cap-sub">${p.caption || p.type || ""}</span></span>
-        <span class="cap-model">${p.model}</span>
+        ${p.model ? `<span class="cap-model">${p.model}</span>` : ""}
       </figcaption>
     </figure>
   `).join("");

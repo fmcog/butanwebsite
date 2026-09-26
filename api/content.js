@@ -73,8 +73,8 @@ module.exports = async function handler(req, res) {
          mark fills the chip the same way. */
       const logo = rawLogo ? `/api/logo?src=${encodeURIComponent(rawLogo)}` : "";
       const type = p.Type?.select?.name;
-      if (type === "Client logo") clients.push({ name, logo });
-      else if (logo && !coveredByClientRow(name)) clients.push({ name, logo });
+      /* Only rows with an actual logo file make the bar. */
+      if (logo && (type === "Client logo" || !coveredByClientRow(name))) clients.push({ name, logo });
       if (type === "Project") {
         projects.push({ name, photo: fileUrl(p["Drone shot"]), caption: text(p.Caption), size: text(p.Size), model: p.Model?.select?.name || "" });
       }
