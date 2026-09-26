@@ -1,7 +1,7 @@
 /* All site content lives here. Edit this file — never index.html — for copy/data changes. */
 
 const CONFIG = {
-  siteUrl: "https://butanwebsite.vercel.app",
+  siteUrl: "https://butansolar.com",
   brandName: "Butan Solar",
   legalLine1: "Butan Construction Sdn Bhd — trading as Butan Solar. Established 1996 · CIDB Grade 7.",
   legalLine2: "Butan Solar Sdn Bhd — SSM 202501046131 (1647539-M).",

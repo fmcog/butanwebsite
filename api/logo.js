@@ -15,7 +15,7 @@ const ALLOWED_HOSTS = [
   /\.amazonaws\.com$/,
   /\.notion\.so$/,
   /\.notion-static\.com$/,
-  /^butanwebsite\.vercel\.app$/
+  /^(www\.)?butansolar\.com$/, /^butanwebsite\.vercel\.app$/
 ];
 
 module.exports = async function handler(req, res) {
