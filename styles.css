@@ -113,10 +113,12 @@ h3 { font-size: 1.19rem; line-height: 1.25; }
 .trusted { padding: 28px 0 36px; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); background: var(--surface-200); }
 .trusted .container > .eyebrow { background: none; color: var(--ink-muted); padding: 0; }
 .marquee { overflow: hidden; margin-top: 12px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.marquee-track { display: flex; width: max-content; gap: 12px; animation: marquee 40s linear infinite; }
+.marquee-track { display: flex; width: max-content; gap: 12px; animation: marquee 24s linear infinite; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
-.logo-chip { display: flex; align-items: center; justify-content: center; min-width: 190px; height: 76px; padding: 12px 22px; background: var(--surface-200); border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-family: var(--font-display); font-weight: 800; font-size: 15px; color: var(--ink); white-space: nowrap; }
-.logo-chip img { max-height: 44px; max-width: 150px; width: auto; height: auto; object-fit: contain; }
+/* Every logo is scaled to fill the same box; multiply blend turns white
+   logo backgrounds transparent against the cream chip. */
+.logo-chip { display: flex; align-items: center; justify-content: center; width: 220px; height: 104px; padding: 14px 20px; background: var(--surface-200); border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-family: var(--font-display); font-weight: 800; font-size: 15px; color: var(--ink); white-space: nowrap; flex-shrink: 0; }
+.logo-chip img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
