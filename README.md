@@ -44,12 +44,12 @@ On submit: WhatsApp opens immediately with a pre-filled message, then `POST /api
 
 ## Photos & logos — edited in Notion (the CMS)
 
-Open **Butan Solar → 🖼️ Website Content** in Notion. Each row is either a
-`Project` (photo gallery) or a `Client logo` (scrolling "Trusted by" bar).
+Open **Butan Solar → 🖼️ Website Content** in Notion. One row per project.
 
-- Upload to **Photo** (project: landscape, ~1600px wide; logo: PNG/SVG with
-  transparent background), fill **Caption / Size / Model**, set **Order**,
-  tick **Published**.
+- **Logo** column → the scrolling "Trusted by" bar (PNG/SVG, transparent background).
+- **Drone shot** column → the Delivered photo gallery (landscape, ~1600px wide).
+- Fill **Caption / Model**, set **Order**, tick **Published**. A row with only a
+  logo (Type = Client logo) appears in the bar but not the gallery.
 - The site (`/api/content`) re-reads the database every 5 minutes. Untick
   Published to hide a row; delete nothing.
 - If Notion is unreachable, the site falls back to the names in `data.js`.

@@ -2,7 +2,7 @@
  * Vercel serverless function: serves the website's CMS content from the
  * Notion "Website Content" database (Butan Solar → 🖼️ Website Content).
  *
- * Bob edits rows in Notion (photo, caption, size, model, order, Published);
+ * Bob edits rows in Notion (logo, drone shot, caption, size, model, order, Published);
  * the site fetches this endpoint and renders. Notion file URLs are signed and
  * expire after ~1 hour, so responses are cached at the edge for 5 minutes only.
  *
@@ -57,17 +57,21 @@ module.exports = async function handler(req, res) {
     const rows = await queryAll();
     const projects = [];
     const clients = [];
+    const logoRows = rows.filter((r) => r.properties.Type?.select?.name === "Client logo");
+    const clientNames = logoRows.map((r) => text(r.properties.Name).toLowerCase());
+    /* A project row's logo joins the bar only if no client-logo row already
+       covers it ("BONIA" covers "BONIA Warehouse"), so brands don't repeat. */
+    const coveredByClientRow = (name) => clientNames.some((c) => c && name.toLowerCase().startsWith(c));
     for (const row of rows) {
       const p = row.properties;
-      const item = {
-        name: text(p.Name),
-        photo: fileUrl(p.Photo),
-        caption: text(p.Caption),
-        size: text(p.Size),
-        model: p.Model?.select?.name || ""
-      };
-      if (p.Type?.select?.name === "Client logo") clients.push({ name: item.name, logo: item.photo });
-      else projects.push(item);
+      const name = text(p.Name);
+      const logo = fileUrl(p.Logo);
+      const type = p.Type?.select?.name;
+      if (type === "Client logo") clients.push({ name, logo });
+      else if (logo && !coveredByClientRow(name)) clients.push({ name, logo });
+      if (type === "Project") {
+        projects.push({ name, photo: fileUrl(p["Drone shot"]), caption: text(p.Caption), size: text(p.Size), model: p.Model?.select?.name || "" });
+      }
     }
     res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
     return res.status(200).json({ ok: true, projects, clients });
